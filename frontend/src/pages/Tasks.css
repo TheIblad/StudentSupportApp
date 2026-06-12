@@ -1,0 +1,498 @@
+/* Layout */
+#tasks-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  height: 100%;
+  width: 100%;
+}
+
+#control-bar {
+  display: flex;
+  gap: var(--gap-sm);
+  align-items: center;
+}
+
+#control-bar select {
+  padding: 8px;
+  border: var(--border);
+  font-size: var(--font-xs);
+  background-color: var(--color-neutral-white);
+}
+
+#tasks-main-content {
+  display: flex;
+  gap: var(--gap-lg);
+  flex: 1;
+  min-height: 0;
+}
+
+#timetable-section {
+  flex: 0 0 62%;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+}
+
+#tasks-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#task-stats-section {
+  flex: 0 0 auto;
+}
+
+
+/* Timetable header */
+#timetable-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--gap-md);
+}
+
+#cal-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  position: relative;
+}
+
+#cal-date-btn {
+  width: 130px;
+  height: var(--size-5);
+  background-color: var(--color-neutral-200);
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+#cal-date-btn:hover {
+  background-color: var(--color-neutral-300);
+}
+
+#cal-nav > button:not(#cal-date-btn):not(#today-btn) {
+  width: var(--size-5);
+  height: var(--size-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-neutral-200);
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-base);
+  box-sizing: border-box;
+}
+
+#cal-nav > button:not(#cal-date-btn):not(#today-btn):hover {
+  background-color: var(--color-neutral-300);
+}
+
+#today-btn {
+  height: var(--size-5);
+  padding: 0 var(--size-3);
+  background-color: var(--color-neutral-200);
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  box-sizing: border-box;
+}
+
+#today-btn:hover {
+  background-color: var(--color-neutral-300);
+}
+
+/* Date picker popup */
+#date-picker-popup {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--color-neutral-white);
+  border: var(--border);
+  border-radius: var(--radius-1);
+  box-shadow: var(--shadow-md);
+  padding: var(--gap-md);
+  z-index: 100;
+  min-width: 200px;
+  margin-top: var(--size-1);
+}
+
+#picker-year-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--gap-sm);
+  font-size: var(--font-base);
+}
+
+#picker-year-row button {
+  width: var(--size-5);
+  height: var(--size-5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-neutral-200);
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-base);
+  box-sizing: border-box;
+}
+
+#picker-year-row button:hover {
+  background-color: var(--color-neutral-300);
+}
+
+#picker-months-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap-sm);
+}
+
+#picker-months-grid button {
+  padding: var(--size-1) var(--size-2);
+  border: none;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-xs);
+}
+
+#picker-months-grid button:hover {
+  background-color: var(--color-neutral-200);
+}
+
+#picker-week-header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+  font-size: var(--font-base);
+}
+
+#picker-week-header button {
+  height: var(--size-5);
+  padding: 0 var(--size-2);
+  background-color: var(--color-neutral-200);
+  border: none;
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-xs);
+  box-sizing: border-box;
+}
+
+#picker-week-header button:hover {
+  background-color: var(--color-neutral-300);
+}
+
+#picker-weeks-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+#picker-weeks-list button {
+  padding: var(--size-1) var(--size-2);
+  border: none;
+  background-color: var(--color-neutral-100);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-sm);
+  text-align: left;
+}
+
+#picker-weeks-list button:hover {
+  background-color: var(--color-neutral-200);
+}
+
+/* Calendar grid */
+#calendar-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  /* overflow-y: auto; */
+}
+
+.calendar-header-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: var(--border);
+}
+
+.cal-day-header {
+  text-align: center;
+  font-size: var(--font-sm);
+  padding: 6px 0;
+  color: var(--color-muted);
+}
+
+#month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, auto);
+  flex: 1;
+  min-height: 0;
+}
+
+#week-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+
+.cal-cell {
+  height: 100%;
+  min-height: 0;
+  overflow-y: auto;
+  cursor: pointer;
+}
+
+.cal-cell:nth-child(7n) {
+  border-right: none;
+}
+
+.cal-date-num {
+  display: block;
+  text-align: center;
+  font-size: var(--font-sm);
+}
+
+.cal-cell.other-month .cal-date-num {
+  color: var(--color-neutral-300);
+}
+
+.cal-cell.today .cal-date-num {
+  background-color: var(--color-primary-800);
+  color: var(--color-neutral-white);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  font-weight: bold;
+}
+
+.week-cell {
+  min-height: 120px;
+}
+
+/* Tasks list */
+#tasks-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+}
+
+.task-row {
+  display: flex;
+  gap: var(--gap-md);
+  align-items: center;
+  padding: 8px 10px;
+  border: var(--border);
+  border-radius: var(--radius-1);
+  cursor: pointer;
+  font-size: var(--font-base);
+}
+
+.task-row:hover {
+  background-color: var(--color-neutral-100);
+}
+
+.task-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.task-meta {
+  font-size: var(--font-sm);
+  color: var(--color-muted);
+  white-space: nowrap;
+}
+
+/* Task stats */
+#stats-row {
+  display: flex;
+  gap: var(--gap-lg);
+  margin-top: var(--gap-sm);
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-primary-800);
+}
+
+.stat-label {
+  font-size: var(--font-sm);
+  color: var(--color-muted);
+}
+
+/* Task modals */
+#task-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+#task-form input,
+#task-form textarea,
+#task-form select {
+  padding: 8px;
+  border: var(--border);
+  font-size: var(--font-base);
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+#task-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+#task-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-sm);
+}
+
+.timetable-modal {
+  width: 500px;
+  max-width: 90%;
+}
+
+/* Timetable form layout */
+#timetable-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+.tt-row {
+  display: grid;
+  gap: var(--gap-sm);
+}
+
+.tt-row:first-of-type {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.tt-row:nth-of-type(2) {
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.tt-row input,
+.tt-row select {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tt-preview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.entry {
+  font-size: 0.7rem;
+  line-height: 1.1;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: white;
+}
+
+.entry-preview {
+  border: var(--border);
+  border-radius: var(--radius-1);
+  padding: 8px;
+  background-color: var(--color-neutral-100);
+}
+
+.entry-preview-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--gap-sm);
+}
+
+.entry-preview-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--font-sm);
+}
+
+.entry-preview-title {
+  font-weight: bold;
+}
+
+.entry-preview-time {
+  font-size: var(--font-xs);
+  color: var(--color-muted);
+}
+
+.entry-preview-meta {
+  font-size: var(--font-xs);
+  color: var(--color-muted);
+}
+
+.entry-preview-notes {
+  font-size: var(--font-xs);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.entry.lecture {
+  background-color: blue
+}
+
+.entry.lab {
+  background-color: green
+}
+
+.entry.tutorial {
+  background-color: orange
+}
+
+.entry.scheduled {
+  background-color: purple
+}
+
+.entry.task {
+  display: block;
+  background: #ffefc2;
+  color: #000;
+  padding: 2px 4px;
+  margin-top: 2px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.cal-cell::-webkit-scrollbar {
+  display: none;
+}

@@ -1,0 +1,135 @@
+#dashboard-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  gap: var(--gap-lg);
+  min-height: 0;
+}
+
+#dashboard-grid .section-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Today panel */
+#today-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+}
+
+.today-item {
+  display: flex;
+  gap: var(--gap-md);
+  align-items: center;
+  padding: 6px 8px;
+  border: var(--border);
+  border-radius: var(--radius-1);
+  font-size: var(--font-base);
+}
+
+.today-item-name {
+  flex: 1;
+  font-weight: bold;
+}
+
+.empty-msg {
+  font-size: var(--font-sm);
+  color: var(--color-muted);
+}
+
+/* Tasks overview */
+#tasks-overview-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+/* Timetable overview */
+#timetable-overview-grid {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+#timetable-overview-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-bottom: var(--border);
+}
+
+#timetable-overview-body {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex: 1;
+  min-height: 0;
+}
+
+.timetable-overview-cell {
+  border-right: var(--border);
+  border-bottom: var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.timetable-overview-cell:last-child {
+  border-right: none;
+}
+
+/* Academic & Journaling overviews */
+#academic-overview-list,
+#journaling-overview-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+}
+
+.overview-row {
+  display: flex;
+  gap: var(--gap-md);
+  align-items: center;
+  padding: 6px 8px;
+  border: var(--border);
+  border-radius: var(--radius-1);
+  font-size: var(--font-base);
+}
+
+.overview-name {
+  flex: 1;
+  font-size: var(--font-sm);
+}
+
+/* Quick Stats overview */
+#quick-stats h2 {
+  margin-bottom: 15px;
+}
+
+#quick-stats p {
+  margin-top: 0px;
+  margin-bottom: 5px;
+}
+
+.entry {
+  flex-shrink: 0;
+}
+
+.timetable-overview-cell::-webkit-scrollbar {
+  display: none;
+}

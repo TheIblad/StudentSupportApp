@@ -1,0 +1,294 @@
+#academic-layout {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+  height: 100%;
+  width: 100%;
+}
+
+#control-bar {
+  display: flex;
+  gap: var(--gap-sm);
+  align-items: center;
+}
+
+#control-bar select {
+  border: var(--border);
+  background-color: var(--color-neutral-white);
+  font-size: var(--font-xs);
+}
+
+#control-bar input[type="text"] {
+  flex: 1;
+  border: var(--border);
+  padding: 0 var(--size-1);
+  height: var(--size-6);
+  box-sizing: border-box;
+}
+
+#academic-content {
+  display: flex;
+  gap: var(--gap-lg);
+  flex: 1;
+  min-height: 0;
+}
+
+#documents-section {
+  flex: 0 0 65%;
+  display: flex;
+  flex-direction: column;
+}
+
+#academic-trends-section {
+  flex: 1;
+}
+
+#documents-list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-sm);
+  margin-bottom: var(--gap-sm);
+}
+
+.document-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border: var(--border);
+  border-radius: var(--radius-1);
+}
+
+.document-info {
+  display: flex;
+  gap: var(--gap-md);
+  align-items: center;
+}
+
+.doc-title {
+  font-size: var(--font-base);
+  font-weight: bold;
+}
+
+.doc-meta {
+  font-size: var(--font-sm);
+  color: var(--color-muted);
+}
+
+.document-actions {
+  display: flex;
+  gap: var(--gap-sm);
+}
+
+.document-actions button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-sm);
+  padding: 4px 8px;
+}
+
+.document-actions button:hover {
+  text-decoration: underline;
+}
+
+#doc-modal {
+  max-width: 800px;
+  min-height: 70vh;
+}
+
+#doc-modal-content {
+  min-height: 200px;
+  font-size: var(--font-base);
+}
+
+#upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-md);
+}
+
+#upload-form input[type="text"],
+#upload-form input[type="date"] {
+  padding: 8px;
+  border: var(--border);
+  font-size: var(--font-base);
+  box-sizing: border-box;
+}
+
+#upload-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--gap-sm);
+}
+
+.flashcard {
+  cursor: pointer;
+  margin: 25px 100px;
+  padding-left: 10px;
+  padding-right: 10px;
+  min-height: 200px;
+  max-height: 200px;
+  border: 2.5px solid black;
+  border-radius: 10px;
+  align-content: center;
+  text-align: center;
+  font-size: large;
+}
+
+.flashcard-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.flashcard-buttons button {
+  cursor: pointer;
+  border: none;
+  border-radius: 7.5px;
+  background-color: black;
+  color: white;
+  width: 100px;
+  padding-left: 12.5px; padding-right: 12.5px;
+  padding-top: 7.5px; padding-bottom: 7.5px;
+  font-size: medium;
+}
+
+.quiz-section {
+  font-size: medium;
+}
+
+.quiz-question {
+  margin-top: 30px; margin-bottom: 30px;
+}
+
+.quiz-question-text {
+  font-weight: bold;
+}
+
+.quiz-option input {
+  margin: 7.5px;
+}
+
+.quiz-button {
+  cursor: pointer;
+  border: none;
+  border-radius: 7.5px;
+  background-color: black;
+  color: white;
+  width: 100px;
+  padding-left: 12.5px; padding-right: 12.5px;
+  padding-top: 7.5px; padding-bottom: 7.5px;
+  font-size: medium;
+}
+
+.quiz-button:disabled {
+  cursor: auto;
+  background-color: gray;
+}
+
+.quiz-results {
+  margin-top: 30px; margin-bottom: 30px;
+}
+
+#doc-modal-content a {
+  font-size: medium;
+  text-decoration: none;
+  color:blue
+}
+
+#doc-modal-content a:visited {
+  color: blue
+}
+
+#doc-modal-content a:active {
+  color: blue
+}
+
+#doc-modal-content a:hover {
+  color: blue
+}
+
+#academic-trends-section {
+  min-height: 0;
+  overflow-y: auto;
+}
+
+#academic-trends-section h2 {
+  margin-bottom: 15px;
+}
+
+#academic-trends-section .academic-support {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#academic-trends-section .academic-support a {
+  font-size: medium;
+  text-decoration: none;
+  color:blue
+}
+
+#academic-trends-section .academic-support a:visited {
+  color:blue
+}
+
+#academic-trends-section .academic-support a:active {
+  color:blue
+}
+
+#academic-trends-section .academic-support a:hover {
+  color:blue
+}
+
+.module-trend-chart {
+  margin-bottom: 12.5px;
+}
+
+.module-trend-chart p {
+  font-size: medium;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.ask-question-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.ask-question-section h2 {
+  margin-top: 15px; margin-bottom: 15px;
+}
+
+.ask-question-section textarea {
+  width: 100%;
+  height: 100px;
+  resize: none;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
+  padding: 10px;
+  border: 1.5px solid black;
+  border-radius: 10px;
+}
+
+.ask-question-section textarea:focus {
+  outline: none;
+}
+
+.ask-question-section button {
+  margin-top: 15px;
+  width: fit-content;
+  padding: 5px 15px;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.ask-question-section p {
+  margin-top: 15px; margin-bottom: 15px;
+}
