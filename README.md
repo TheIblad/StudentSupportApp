@@ -1,0 +1,48 @@
+INSTRUCTIONS FOR DEVELOPERS
+
+Step 1)
+Install:
+- Node.js
+- Python 3.11 (I did 3.11.8) and select "add to path" during installation *not newer versions*
+- VS Code (extensions: Python, Pylance, ESLint, Prettier)
+
+Step 2)
+Download the repo and open it in VS Code
+
+Step 3)
+In a VS Code terminal:
+cd backend
+python -m venv venv (creates Python environment - only do this *once*)
+venv\Scripts\activate (activates Python environment - you should see (venv) in the terminal)
+pip install -r requirements.txt (installs backend dependencies - only do this *once*)
+
+Step 4)
+Create a file called .env inside backend (for environmental variables)
+
+Step 5)
+In a terminal (still in backend):
+uvicorn app.main:app --reload
+
+Backend endpoints are then available at http://localhost:8000/name_of_endpoint
+
+Step 6)
+In a *new* terminal:
+cd frontend
+npm install (installs frontend dependencies - only do this *once*)
+npm run dev
+
+Frontend i.e. the website is then available at http://localhost:5173
+
+Note: you need to run both the backend (after activating the Python environment) and the frontend to see the entire website after making changes
+
+Terminal 1:
+cd backend
+uvicorn app.main:app --reload
+
+Terminal 2:
+cd frontend
+npm run dev
+
+Then go to http://localhost:5173
+
+Ctrl + C in both terminals to kill it
