@@ -4,11 +4,11 @@ from app.routes import tasks, journals, documents, ai
 
 app = FastAPI()
 
-# Allow React frontend
+# Allow frontend requests from any domain (local or Vercel)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )

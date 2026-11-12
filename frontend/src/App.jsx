@@ -33,7 +33,7 @@ function App() {
   // Fetch data only if session exists AND we have a user ID
   useEffect(() => {
     if (session?.user?.id) {
-      fetch(`http://localhost:8000/tasks?user_id=${session.user.id}`, {method: "GET"})
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/tasks?user_id=${session.user.id}`, {method: "GET"})
         .then((response) => response.json())
         .then((tasks) => setTasks(tasks))
         .catch(err => console.error("Failed to fetch tasks:", err));

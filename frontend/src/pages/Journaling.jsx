@@ -31,7 +31,7 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
 
   async function loadJournals() {
     if (!userId) return;
-    const response = await fetch(`http://localhost:8000/journals?user_id=${userId}`, {method: "GET"});
+    const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals?user_id=${userId}`, {method: "GET"});
     const data = await response.json();
     setJournals(data);
   }
@@ -42,7 +42,7 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
 
   async function loadJournalByDate(selectedDate) {
     if (!userId) return;
-    const response = await fetch(`http://localhost:8000/journals/date/${selectedDate}?user_id=${userId}`, {method: "GET"});
+    const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals/date/${selectedDate}?user_id=${userId}`, {method: "GET"});
     const data = await response.json();
     if (data && data.entry) {
       setEntry(data.entry);
@@ -58,7 +58,7 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
   async function getJournalingTrends() {
     if (!userId) return;
     try {
-      const response = await fetch(`http://localhost:8000/ai/journaling_trends?user_id=${userId}`, {method: "GET"});
+      const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/journaling_trends?user_id=${userId}`, {method: "GET"});
       const data = await response.json();
       setMoodHistory(data.mood_history);
       setRecentSuggestion(data.recent_suggestion);
@@ -79,13 +79,13 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
     const journalBody = { date: date, entry: entry, user_id: userId };
 
     if (existingJournal) {
-      await fetch(`http://localhost:8000/journals/${existingJournal.id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals/${existingJournal.id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(journalBody)
       });
     } else {
-      await fetch("http://localhost:8000/journals", {
+      await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/journals", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify(journalBody)
@@ -93,7 +93,7 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
     }
 
     try {
-      await fetch("http://localhost:8000/ai/journal_analysis", {
+      await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/ai/journal_analysis", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({date: date, entry: entry, user_id: userId})
@@ -110,7 +110,7 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
     const confirmed = window.confirm("Are you sure you want to delete this entry?");
     if (!confirmed) return;
 
-    await fetch(`http://localhost:8000/journals/${id}`, {method: "DELETE"});
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals/${id}`, {method: "DELETE"});
     setJournals(journals.filter(j => j.id !== id));
     setShowViewModal(false);
     getJournalingTrends();
@@ -133,14 +133,14 @@ export default function Journaling({ userId, activeTour, setActiveTour }) {
   };
 
   const handleSaveEdit = async () => {
-    await fetch(`http://localhost:8000/journals/${selectedJournal.id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals/${selectedJournal.id}`, {
       method: "PUT",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({date: selectedJournal.date, entry: editedEntry, user_id: userId})
     });
 
     try {
-      await fetch("http://localhost:8000/ai/journal_analysis", {
+      await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/ai/journal_analysis", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({date: selectedJournal.date, entry: editedEntry, user_id: userId})

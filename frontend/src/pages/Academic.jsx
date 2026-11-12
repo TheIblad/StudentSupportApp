@@ -56,7 +56,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
   const askQuestion = async () => {
     if (! question.trim()) return;
 
-    const response = await fetch("http://localhost:8000/ai/ask_question", {
+    const response = await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/ai/ask_question", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ summary: summary, question: question })
@@ -69,7 +69,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
   async function getAcademicTrends() {
     if (!userId) return;
     try {
-      const response = await fetch(`http://localhost:8000/ai/academic_trends?user_id=${userId}`, {method: 'GET'});
+      const response = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/academic_trends?user_id=${userId}`, {method: 'GET'});
       const data = await response.json();
       setModuleScoresHistory(data.module_scores_history);
       setModuleScoresAverages(data.module_scores_averages);
@@ -85,7 +85,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
 
   useEffect(() => {
     if (userId) {
-      fetch(`http://localhost:8000/documents?user_id=${userId}`, { method: 'GET' })
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/documents?user_id=${userId}`, { method: 'GET' })
         .then((response) => response.json())
         .then((data) => setDocuments(data))
         .catch(err => console.error(err));
@@ -117,7 +117,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
 
     const getAIContent = async () => {
       try {
-        const response = await fetch('http://localhost:8000/ai/' + selectedDoc.file_name, { method: 'GET' });
+        const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/ai/' + selectedDoc.file_name, { method: 'GET' });
         const content = await response.json();
 
         setSummary(content.summary);
@@ -190,7 +190,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
       formData.append('date_uploaded', uploadDate);
       formData.append('user_id', userId); 
 
-      const response = await fetch('http://localhost:8000/documents/upload', {
+      const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/documents/upload', {
         method: 'POST',
         body: formData
       });
@@ -211,7 +211,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
     try {
       setLoading(true);
 
-      const response = await fetch("http://localhost:8000/ai", {
+      const response = await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/ai", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify({ file_name: selectedDoc.file_name, type: type }),
@@ -250,7 +250,7 @@ export default function Academic({ userId, activeTour, setActiveTour }) {
     setQuizWrongAnswers(wrongAnswers);
 
     try {
-      await fetch("http://localhost:8000/ai/quiz_result", {
+      await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/ai/quiz_result", {
         method: "POST",
         headers: { "Content-Type" : "application/json" },
         body: JSON.stringify({ file_name: selectedDoc.file_name, score: score, total_questions: quiz.length, user_id: userId })

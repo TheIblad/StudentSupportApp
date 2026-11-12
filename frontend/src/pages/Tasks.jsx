@@ -111,7 +111,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
   useEffect(() => {
     const fetchSchedule = async () => {
       if (!userId) return;
-      const res = await fetch(`http://localhost:8000/schedule?user_id=${userId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/schedule?user_id=${userId}`);
       const data = await res.json();
       setScheduledEntries(data);
     };
@@ -120,7 +120,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
   }, [userId]);
 
   const refreshSchedule = async () => {
-    const res = await fetch(`http://localhost:8000/schedule?user_id=${userId}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/schedule?user_id=${userId}`);
     const data = await res.json();
     setScheduledEntries(data);
   };
@@ -128,7 +128,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
   useEffect(() => {
     const fetchTimetable = async () => {
       if (!userId) return;
-      const res = await fetch(`http://localhost:8000/timetable?user_id=${userId}`);
+      const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable?user_id=${userId}`);
       const data = await res.json();
       setTimetableEntries(data);
     };
@@ -230,7 +230,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
   };
 
   const addTask = async () => {
-    const response = await fetch('http://localhost:8000/tasks', {
+    const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/tasks', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ 
@@ -245,7 +245,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
     });
     const addedTask = await response.json();
     setTasks([...tasks, addedTask]);
-        await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
+        await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
         await refreshSchedule();
     endAdd();
   };
@@ -276,23 +276,23 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
   };
 
   const changeTask = async () => {
-    const response = await fetch('http://localhost:8000/tasks/' + changeTaskID, {
+    const response = await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/tasks/' + changeTaskID, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: changeTaskName, description: changeTaskDescription, due_date: changeTaskDueDate, priority: changeTaskPriority, status: changeTaskStatus, module: changeTaskModule, estimated_duration: changeTaskDuration })
     });
     const changedTask = await response.json();
     setTasks(tasks.map(t => t.id === changedTask.id ? changedTask : t));
-        await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
+        await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
         await refreshSchedule();
     endChange();
   };
 
   const removeTask = async (id) => {
     if (!window.confirm('Are you sure you want to delete this task?')) return;
-    await fetch('http://localhost:8000/tasks/' + id, { method: 'DELETE' });
+    await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/tasks/' + id, { method: 'DELETE' });
     setTasks(tasks.filter(t => t.id !== id));
-        await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
+        await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {method: 'POST'});
         await refreshSchedule();
     endChange();
   };
@@ -344,7 +344,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
       user_id: userId
     }));
 
-    await fetch('http://localhost:8000/timetable', {
+    await fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000') + '/timetable', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(entriesToInsert)
@@ -353,27 +353,27 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
     resetTimetableForm();
 
     // refresh timetable
-    const res = await fetch(`http://localhost:8000/timetable?user_id=${userId}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable?user_id=${userId}`);
     const data = await res.json();
     setTimetableEntries(data);
 
-    await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {
       method: 'POST'
     });
     await refreshSchedule();
   };
 
   const deleteExistingEntry = async (id) => {
-    await fetch(`http://localhost:8000/timetable/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable/${id}`, {
       method: 'DELETE'
     });
 
     // refresh timetable after delete
-    const res = await fetch(`http://localhost:8000/timetable?user_id=${userId}`);
+    const res = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable?user_id=${userId}`);
     const data = await res.json();
     setTimetableEntries(data);
 
-    await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {
       method: 'POST'
     });
     await refreshSchedule();
@@ -477,7 +477,7 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
     formData.append("file", file);
     formData.append("user_id", userId);
 
-    const res = await fetch("http://localhost:8000/timetable/upload", {
+    const res = await fetch((import.meta.env.VITE_API_URL || "http://localhost:8000") + "/timetable/upload", {
       method: "POST",
       body: formData
     });
@@ -485,11 +485,11 @@ export default function Tasks({ tasks, setTasks, userId, activeTour, setActiveTo
     const data = await res.json();
 
     // Refresh timetable after upload
-    const refresh = await fetch(`http://localhost:8000/timetable?user_id=${userId}`);
+    const refresh = await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable?user_id=${userId}`);
     const updated = await refresh.json();
     setTimetableEntries(updated);
 
-    await fetch(`http://localhost:8000/ai/generate_schedule?user_id=${userId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai/generate_schedule?user_id=${userId}`, {
       method: 'POST'
     });
     await refreshSchedule();

@@ -40,13 +40,13 @@ export default function Dashboard({ tasks, userId, activeTour, setActiveTour }) 
 
   useEffect(() => {
     if (userId) {
-      fetch(`http://localhost:8000/documents?user_id=${userId}`).then(r => r.json()).then(setDocuments).catch(e => console.error(e));
-      fetch(`http://localhost:8000/journals?user_id=${userId}`).then(r => r.json()).then(setJournals).catch(e => console.error(e));
-      fetch(`http://localhost:8000/ai_journals?user_id=${userId}`).then(r => r.json()).then(setAIJournals).catch(e => console.error(e));
-      fetch(`http://localhost:8000/quiz_results?user_id=${userId}`).then(r => r.json()).then(setResults).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/documents?user_id=${userId}`).then(r => r.json()).then(setDocuments).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/journals?user_id=${userId}`).then(r => r.json()).then(setJournals).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/ai_journals?user_id=${userId}`).then(r => r.json()).then(setAIJournals).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/quiz_results?user_id=${userId}`).then(r => r.json()).then(setResults).catch(e => console.error(e));
       // FIX: Added the missing fetches for the timetable overview
-      fetch(`http://localhost:8000/timetable?user_id=${userId}`).then(r => r.json()).then(setTimetableEntries).catch(e => console.error(e));
-      fetch(`http://localhost:8000/schedule?user_id=${userId}`).then(r => r.json()).then(setScheduledEntries).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/timetable?user_id=${userId}`).then(r => r.json()).then(setTimetableEntries).catch(e => console.error(e));
+      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/schedule?user_id=${userId}`).then(r => r.json()).then(setScheduledEntries).catch(e => console.error(e));
     }
   }, [userId]);
 
