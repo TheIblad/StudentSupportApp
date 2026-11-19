@@ -9,10 +9,53 @@ import Tasks from './pages/Tasks';
 import Login from './pages/Login';
 import './App.css';
 
+function ServerWakeBanner() {
+  const [status, setStatus] = useState("idle");
+
+  useEffect(() => {
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    let isResolved = false;
+
+    const timer = setTimeout(() => {
+      if (!isResolved) setStatus("waking");
+    }, 2500);
+
+    fetch(`${apiUrl}/`)
+      .then(() => {
+        isResolved = true;
+        clearTimeout(timer);
+        setStatus("ready");
+      })
+      .catch(() => {
+        isResolved = true;
+        clearTimeout(timer);
+        setStatus("waking");
+      });
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (status !== "waking") return null;
+
+  return (
+    <div
+      style={{
+        backgroundColor: "#fffbeb",
+        borderBottom: "1px solid #fde68a",
+        padding: "10px 16px",
+        textAlign: "center",
+        fontSize: "14px",
+        color: "#78350f",
+      }}
+    >
+      Brewing coffee and waking up the server (free hosting takes ~30s after a nap). Almost ready...
+    </div>
+  );
+}
+
 function App() {
   const [session, setSession] = useState(null);
   const [tasks, setTasks] = useState([]);
-
   const [activeTour, setActiveTour] = useState(null);
 
   // Check for active session on load
@@ -33,7 +76,7 @@ function App() {
   // Fetch data only if session exists AND we have a user ID
   useEffect(() => {
     if (session?.user?.id) {
-      fetch(`${import.meta.env.VITE_API_URL || (import.meta.env.VITE_API_URL || 'http://localhost:8000') + ''}/tasks?user_id=${session.user.id}`, {method: "GET"})
+      fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:8000'}/tasks?user_id=${session.user.id}`, { method: "GET" })
         .then((response) => response.json())
         .then((tasks) => setTasks(tasks))
         .catch(err => console.error("Failed to fetch tasks:", err));
@@ -44,11 +87,17 @@ function App() {
 
   // If no session, show Login page
   if (!session) {
-    return <Login />;
+    return (
+      <>
+        <ServerWakeBanner />
+        <Login />
+      </>
+    );
   }
 
   return (
     <>
+      <ServerWakeBanner />
       <Navbar setActiveTour={setActiveTour} />
       <Routes>
         <Route path="/" element={<Dashboard tasks={tasks} userId={session.user.id} activeTour={activeTour} setActiveTour={setActiveTour} />} />
